@@ -15,7 +15,7 @@ import {
 export class AuthService {
   private readonly API = 'https://api.everrest.educata.dev/auth';
 
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
