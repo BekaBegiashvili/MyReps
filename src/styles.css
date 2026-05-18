@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+html, body {
+  min-height: 100%;
+  background: linear-gradient(160deg, #6b6f8e 0%, #2E3047 50%, #272a40 100%);
+  background-attachment: fixed;
+}/*# sourceMappingURL=styles.css.map */

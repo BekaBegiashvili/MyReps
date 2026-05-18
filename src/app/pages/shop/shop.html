@@ -1,0 +1,61 @@
+<div class="page" @fadeUp>
+  <header class="page-header" @fadeUp>
+    <h1>{{ 'shop.title' | translate }}</h1>
+    @if (!isLoading()) {
+      <span class="total-count">{{ totalProducts() }} {{ 'shop.items' | translate }}</span>
+    }
+  </header>
+  <div class="layout">
+    <app-filter-sidebar @fadeLeft (filtersChange)="onFiltersChange($event)" />
+    <div class="content">
+      @if (isLoading()) {
+        <div class="grid">
+          @for (skeleton of [1,2,3,4,5,6,7,8,9,10,11,12]; track skeleton) {
+            <div class="skeleton-card">
+              <div class="skeleton-image shimmer"></div>
+              <div class="skeleton-body">
+                <div class="skeleton-line short shimmer"></div>
+                <div class="skeleton-line shimmer"></div>
+                <div class="skeleton-line medium shimmer"></div>
+              </div>
+            </div>
+          }
+        </div>
+      } @else if (hasError()) {
+        <div class="error-state" @fadeUp>
+          <p>{{ 'shop.error' | translate }}</p>
+          <button (click)="reload()">{{ 'shop.retry' | translate }}</button>
+        </div>
+      } @else if (products().length === 0) {
+        <div class="empty-state" @fadeUp>
+          <p>{{ 'shop.not_found' | translate }}</p>
+        </div>
+      } @else {
+        <div class="grid" @fadeUp>
+          @for (product of products(); track product._id) {
+            <app-product-card [product]="product" />
+          }
+        </div>
+        <div class="pagination" @fadeUp>
+          <button class="page-btn" [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)">←</button>
+          @if (pageNumbers()[0] > 1) {
+            <button class="page-btn" (click)="goToPage(1)">1</button>
+            @if (pageNumbers()[0] > 2) {
+              <span class="dots">...</span>
+            }
+          }
+          @for (page of pageNumbers(); track page) {
+            <button class="page-btn" [class.active]="page === currentPage()" (click)="goToPage(page)">{{ page }}</button>
+          }
+          @if (pageNumbers()[pageNumbers().length - 1] < totalPages()) {
+            @if (pageNumbers()[pageNumbers().length - 1] < totalPages() - 1) {
+              <span class="dots">...</span>
+            }
+            <button class="page-btn" (click)="goToPage(totalPages())">{{ totalPages() }}</button>
+          }
+          <button class="page-btn" [disabled]="currentPage() === totalPages()" (click)="goToPage(currentPage() + 1)">→</button>
+        </div>
+      }
+    </div>
+  </div>
+</div>

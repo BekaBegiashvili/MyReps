@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "search": "Search Products...",
+    "cart": "Cart",
+    "cart_empty": "Cart Is Empty",
+    "checkout": "Checkout",
+    "clear_cart": "Clear Cart",
+    "total": "Total"
+  },
+  "home": {
+    "hero_text": "Best Tech At The Best Price",
+    "shop_now": "Shop Now",
+    "recently_viewed": "Recently Viewed"
+  },
+  "shop": {
+    "title": "Total",
+    "items": "items",
+    "filters": "Filters",
+    "clear_all": "Clear all",
+    "category": "Category",
+    "brand": "Brand",
+    "rating": "Rating",
+    "price": "Price",
+    "error": "Failed To Load Products.",
+    "retry": "Try Again",
+    "not_found": "No Products Found."
+  },
+  "product": {
+    "back": "← Back To Shop",
+    "reviews": "reviews",
+    "rate": "Rate:",
+    "in_stock": "✓ In Stock",
+    "out_stock": "✕ Out Of Stock",
+    "category": "Category",
+    "brand": "Brand",
+    "warranty": "Warranty",
+    "issue_date": "Issue date",
+    "add_to_cart": "Add To Cart",
+    "error": "Failed To Load Product."
+  },
+  "footer": {
+    "pickup": "Curb-Side Pickup",
+    "shipping": "Free Shipping",
+    "prices": "Low Prices Guaranteed",
+    "available": "Available To You 24/7",
+    "payments": "We Accept The Following Paying Methods",
+    "rights": "© 2025 Kokola17 | Digital Shop | All Right Reserved",
+    "find_us": "Find Us",
+    "location": "Tbilisi, Georgia"
+  }
+}

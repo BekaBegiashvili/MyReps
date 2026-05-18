@@ -1,0 +1,123 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;700&display=swap"
+  rel="stylesheet"
+/>
+<div class="page">
+  @if (isLoading()) {
+    <div class="skeleton-wrap">
+      <div class="skeleton-gallery shimmer"></div>
+      <div class="skeleton-info">
+        <div class="skeleton-line shimmer" style="width: 70%; height: 28px"></div>
+        <div class="skeleton-line shimmer" style="width: 40%; height: 20px; margin-top: 12px"></div>
+        <div class="skeleton-line shimmer" style="width: 55%; height: 16px; margin-top: 12px"></div>
+        <div class="skeleton-line shimmer" style="width: 100%; height: 80px; margin-top: 24px"></div>
+      </div>
+    </div>
+  } @else if (hasError()) {
+    <div class="error-state" @fadeUp>
+      <p>{{ 'product.error' | translate }}</p>
+      <a routerLink="/shop" class="back-btn">{{ 'product.back' | translate }}</a>
+    </div>
+  } @else if (product(); as p) {
+    <a routerLink="/shop" class="back-link" @fadeLeft>{{ 'product.back' | translate }}</a>
+
+    <div class="detail-layout">
+      <div class="gallery" @fadeLeft>
+        <div class="main-image">
+          @if (p.price.discountPercentage > 0) {
+            <span class="badge-discount">-{{ p.price.discountPercentage }}%</span>
+          }
+          <img [src]="currentImage()" [alt]="p.title" />
+        </div>
+        <div class="thumbnails">
+          <button class="thumb" [class.active]="currentImage() === p.thumbnail" (click)="selectImage(p.thumbnail)">
+            <img [src]="p.thumbnail" [alt]="p.title" />
+          </button>
+          @for (img of p.images; track img) {
+            <button class="thumb" [class.active]="currentImage() === img" (click)="selectImage(img)">
+              <img [src]="img" [alt]="p.title" />
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="info" @fadeUp>
+        <span class="category-tag">{{ p.category.name }}</span>
+        <h1 class="title">{{ p.title }}</h1>
+
+        <div class="rating-row">
+          <span class="stars">
+            @for (filled of getStars(p.rating); track $index) {
+              <svg [class.filled]="filled" viewBox="0 0 24 24" width="16" height="16">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            }
+          </span>
+          <span class="rating-value">{{ p.rating | number: '1.1-1' }}</span>
+          @if (p.ratings) {
+            <span class="rating-count">({{ p.ratings.length }} {{ 'product.reviews' | translate }})</span>
+          }
+        </div>
+
+        <div class="rate-row">
+          <span class="rate-label">{{ 'product.rate' | translate }}</span>
+          <span class="stars interactive">
+            @for (star of [1,2,3,4,5]; track star) {
+              <svg
+                [class.filled]="star <= userRating()"
+                (click)="rateProduct(star)"
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            }
+          </span>
+        </div>
+
+        <div class="price-row">
+          <span class="price-current">{{ p.price.current }} {{ p.price.currency }}</span>
+          @if (p.price.discountPercentage > 0) {
+            <span class="price-before">{{ p.price.beforeDiscount }} {{ p.price.currency }}</span>
+          }
+        </div>
+
+        <div class="stock-row">
+          @if (p.stock > 0) {
+            <span class="in-stock">{{ 'product.in_stock' | translate }} ({{ p.stock }})</span>
+          } @else {
+            <span class="out-stock">{{ 'product.out_stock' | translate }}</span>
+          }
+        </div>
+
+        <div class="divider"></div>
+        <p class="description">{{ p.description }}</p>
+        <div class="divider"></div>
+
+        <div class="meta">
+          <div class="meta-item">
+            <span class="meta-label">{{ 'product.category' | translate }}</span>
+            <span class="meta-value">{{ p.category.name }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">{{ 'product.brand' | translate }}</span>
+            <span class="meta-value">{{ p.brand }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">{{ 'product.warranty' | translate }}</span>
+            <span class="meta-value">{{ p.warranty }} year(s)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">{{ 'product.issue_date' | translate }}</span>
+            <span class="meta-value">{{ p.issueDate | date: 'yyyy-MM-dd' }}</span>
+          </div>
+        </div>
+
+        <button class="add-to-cart" [disabled]="p.stock === 0" (click)="addToCart()">
+          {{ 'product.add_to_cart' | translate }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

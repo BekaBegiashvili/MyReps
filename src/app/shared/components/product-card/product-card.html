@@ -1,0 +1,48 @@
+<a class="product-card" [routerLink]="['/shop', product()._id]">
+  <div class="product-card">
+    <div class="card-image">
+      <img [src]="product().thumbnail" [alt]="product().title" />
+      @if (product().price.discountPercentage > 0) {
+        <span class="badge-discount">-{{ product().price.discountPercentage }}%</span>
+      }
+      @if (product().stock === 0) {
+        <span class="badge-out">Out of stock</span>
+      }
+    </div>
+
+    <div class="card-body">
+      <span class="category">{{ product().category.name }}</span>
+      <h3 class="title">{{ product().title }}</h3>
+
+      <div class="rating">
+        <span class="stars">
+          @for (star of [1, 2, 3, 4, 5]; track star) {
+            <svg
+              [class.filled]="star <= product().rating"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+          }
+        </span>
+        <span class="rating-value">{{ product().rating | number: '1.1-1' }}</span>
+      </div>
+
+      <div class="price">
+        <span class="price-current"
+          >{{ product().price.current }} {{ product().price.currency }}</span
+        >
+        @if (product().price.discountPercentage > 0) {
+          <span class="price-before"
+            >{{ product().price.beforeDiscount }} {{ product().price.currency }}</span
+          >
+        }
+      </div>
+    </div>
+  </div>
+</a>

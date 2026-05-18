@@ -1,0 +1,98 @@
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <span class="sidebar-title">{{ 'shop.filters' | translate }}</span>
+    <button class="reset-btn" (click)="resetAll()">{{ 'shop.clear_all' | translate }}</button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="sidebar-loading">
+      @for (i of [1,2,3,4]; track i) {
+        <div class="skeleton-section">
+          <div class="skeleton-line shimmer" style="width: 60%; height: 14px;"></div>
+          @for (j of [1,2,3]; track j) {
+            <div class="skeleton-line shimmer" style="width: 80%; height: 12px; margin-top: 10px;"></div>
+          }
+        </div>
+      }
+    </div>
+  } @else {
+
+    <div class="filter-section">
+      <button class="section-header" (click)="toggleSection('category')">
+        <span>{{ 'shop.category' | translate }}</span>
+        <span class="toggle-icon" [class.open]="openSections()['category']">+</span>
+      </button>
+      @if (openSections()['category']) {
+        <div class="section-body">
+          @for (cat of categories(); track cat.id) {
+            <button class="filter-option" [class.active]="selectedCategory() === cat.id" (click)="selectCategory(cat.id)">
+              {{ cat.name }}
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="filter-section">
+      <button class="section-header" (click)="toggleSection('brand')">
+        <span>{{ 'shop.brand' | translate }}</span>
+        <span class="toggle-icon" [class.open]="openSections()['brand']">+</span>
+      </button>
+      @if (openSections()['brand']) {
+        <div class="section-body">
+          @for (brand of brands(); track brand) {
+            <button class="filter-option" [class.active]="selectedBrand() === brand" (click)="selectBrand(brand)">
+              {{ brand }}
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="filter-section">
+      <button class="section-header" (click)="toggleSection('rating')">
+        <span>{{ 'shop.rating' | translate }}</span>
+        <span class="toggle-icon" [class.open]="openSections()['rating']">+</span>
+      </button>
+      @if (openSections()['rating']) {
+        <div class="section-body">
+          @for (star of [5,4,3,2,1]; track star) {
+            <button class="filter-option rating-option" [class.active]="selectedRating() === star" (click)="selectRating(star)">
+              <span class="stars">
+                @for (s of [1,2,3,4,5]; track s) {
+                  <svg [class.filled]="s <= star" viewBox="0 0 24 24" width="13" height="13">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                }
+              </span>
+              <span class="rating-label">& up</span>
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="filter-section">
+      <button class="section-header" (click)="toggleSection('price')">
+        <span>{{ 'shop.price' | translate }}</span>
+        <span class="toggle-icon" [class.open]="openSections()['price']">+</span>
+      </button>
+      @if (openSections()['price']) {
+        <div class="section-body price-body">
+          <div class="price-inputs">
+            <div class="price-field">
+              <label>Min</label>
+              <input type="number" [ngModel]="minPrice()" (ngModelChange)="minPrice.set($event); onPriceChange()" min="0" placeholder="0"/>
+            </div>
+            <span class="price-sep">—</span>
+            <div class="price-field">
+              <label>Max</label>
+              <input type="number" [ngModel]="maxPrice()" (ngModelChange)="maxPrice.set($event); onPriceChange()" min="0" placeholder="9999"/>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+  }
+</aside>

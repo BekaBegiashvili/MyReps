@@ -1,0 +1,93 @@
+<nav @fadeDown>
+  <div>
+    <h1 routerLink="/">IT Step TechShop</h1>
+  </div>
+  <div class="search-wrapper">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearch()"
+      [placeholder]="'nav.search' | translate"
+    />
+    <div class="dropdown" *ngIf="searchResults.length > 0">
+      <div
+        class="dropdown-item"
+        *ngFor="let product of searchResults"
+        (mousedown)="navigateToProduct(product._id)"
+        style="cursor: pointer"
+      >
+        <img [src]="product.thumbnail" [alt]="product.title" />
+        <span>{{ product.title }}</span>
+        <span>{{ product.price.current }}$</span>
+      </div>
+    </div>
+  </div>
+  <div class="auth-links">
+    <button class="lang-btn" (click)="toggleLang()">
+      {{ currentLang === 'ka' ? '🇬🇪' : '🇬🇧' }}
+    </button>
+    <button class="theme-btn" (click)="switchTheme()">
+      {{
+        currentTheme === 'default'
+          ? '🔵'
+          : currentTheme === 'theme-green'
+            ? '🟢'
+            : currentTheme === 'theme-purple'
+              ? '🟣'
+              : currentTheme === 'theme-pink'
+                ? '🔴'
+                : currentTheme === 'theme-light'
+                  ? '⚪'
+                  : '🟠'
+      }}
+    </button>
+    <ng-container *ngIf="currentUser; else guestLinks">
+      <button class="cart-btn" (click)="toggleCart()">
+        🛒
+        <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </button>
+      <img [src]="currentUser.avatar" [alt]="currentUser.firstName" />
+      <span>{{ currentUser.firstName }} {{ currentUser.lastName }}</span>
+      <a routerLink="/profile">{{ 'nav.profile' | translate }}</a>
+    </ng-container>
+    <ng-template #guestLinks>
+      <a routerLink="/auth/login">{{ 'nav.login' | translate }}</a>
+      <a routerLink="/auth/register">{{ 'nav.register' | translate }}</a>
+    </ng-template>
+  </div>
+</nav>
+
+<div class="cart-overlay" *ngIf="isCartOpen" (click)="toggleCart()"></div>
+<div class="cart-drawer" [class.open]="isCartOpen">
+  <div class="cart-header">
+    <h3>{{ 'nav.cart' | translate }}</h3>
+    <button (click)="toggleCart()">✕</button>
+  </div>
+  <div class="cart-body">
+    <div *ngIf="cart && cart.products.length > 0; else emptyCart">
+      <div class="cart-item" *ngFor="let item of cart.products">
+        <span>{{ item.productId }}</span>
+        <div class="quantity-controls">
+          <button
+            (click)="updateQuantity(item.productId, item.quantity - 1)"
+            [disabled]="item.quantity <= 1"
+          >
+            -
+          </button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="updateQuantity(item.productId, item.quantity + 1)">+</button>
+        </div>
+        <span>{{ item.pricePerQuantity * item.quantity }}₾</span>
+        <button (click)="removeProduct(item.productId)">🗑</button>
+      </div>
+    </div>
+    <ng-template #emptyCart>
+      <p>{{ 'nav.cart_empty' | translate }}</p>
+    </ng-template>
+  </div>
+  <div class="cart-footer" *ngIf="cart && cart.products.length > 0">
+    <p>{{ 'nav.total' | translate }}: {{ cart.total.price.current }}₾</p>
+    <button (click)="checkout()">{{ 'nav.checkout' | translate }}</button>
+    <button (click)="clearCart()">{{ 'nav.clear_cart' | translate }}</button>
+  </div>
+</div>

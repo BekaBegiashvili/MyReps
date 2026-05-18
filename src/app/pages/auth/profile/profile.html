@@ -1,0 +1,78 @@
+<div class="profile-container">
+  <!-- Tabs -->
+  <div class="tabs">
+    <button (click)="activeTab = 'info'" [class.active]="activeTab === 'info'">პროფილი</button>
+    <button (click)="activeTab = 'edit'" [class.active]="activeTab === 'edit'">რედაქტირება</button>
+    <button (click)="activeTab = 'password'" [class.active]="activeTab === 'password'">
+      პაროლი
+    </button>
+  </div>
+
+  <!-- Notifications -->
+  <p class="success" *ngIf="success">{{ success }}</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <!-- Show Profile -->
+  <div *ngIf="activeTab === 'info' && user">
+    <img [src]="user.avatar" [alt]="user.firstName" />
+    <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+    <p>ელ-ფოსტა: {{ user.email }}</p>
+    <p>ასაკი: {{ user.age }}</p>
+    <p>მისამართი: {{ user.address }}</p>
+    <p>ტელეფონი: {{ user.phone }}</p>
+    <p>ZIP: {{ user.zipcode }}</p>
+    <p>სქესი: {{ user.gender }}</p>
+    <p>სტატუსი: {{ user.verified ? '✅ დადასტურებული' : '❌ დაუდასტურებელი' }}</p>
+
+    <div class="actions">
+      <button class="btn-signout" (click)="onSignOut()">გასვლა</button>
+      <button class="btn-delete" (click)="onDelete()">ანგარიშის წაშლა</button>
+    </div>
+  </div>
+
+  <!-- Edit Profile -->
+  <div *ngIf="activeTab === 'edit'">
+    <form [formGroup]="editForm" (ngSubmit)="onUpdate()">
+      <div class="form-group">
+        <label>სახელი</label>
+        <input type="text" formControlName="firstName" />
+      </div>
+      <div class="form-group">
+        <label>გვარი</label>
+        <input type="text" formControlName="lastName" />
+      </div>
+      <div class="form-group">
+        <label>ასაკი</label>
+        <input type="number" formControlName="age" />
+      </div>
+      <div class="form-group">
+        <label>მისამართი</label>
+        <input type="text" formControlName="address" />
+      </div>
+      <div class="form-group">
+        <label>ტელეფონი</label>
+        <input type="text" formControlName="phone" />
+      </div>
+      <div class="form-group">
+        <label>ZIP კოდი</label>
+        <input type="text" formControlName="zipcode" />
+      </div>
+      <button type="submit" [disabled]="editForm.invalid">შენახვა</button>
+    </form>
+  </div>
+
+  <!-- Change Password -->
+  <div *ngIf="activeTab === 'password'">
+    <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+      <div class="form-group">
+        <label>ძველი პაროლი</label>
+        <input type="password" formControlName="oldPassword" />
+      </div>
+      <div class="form-group">
+        <label>ახალი პაროლი</label>
+        <input type="password" formControlName="newPassword" />
+      </div>
+      <button type="submit" [disabled]="passwordForm.invalid">შეცვლა</button>
+    </form>
+  </div>
+</div>

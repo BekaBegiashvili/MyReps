@@ -1,0 +1,48 @@
+<div class="chatbot-wrapper">
+  <div class="chat-window" [class.open]="isOpen()">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <span class="chat-avatar">🤖</span>
+        <div>
+          <p class="chat-name">TechShop Assistant</p>
+          <p class="chat-status">ონლაინ</p>
+        </div>
+      </div>
+      <button class="chat-close" (click)="toggleChat()">✕</button>
+    </div>
+
+    <div class="chat-body">
+      @for (msg of messages(); track $index) {
+        <div class="message" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
+          @if (msg.role === 'assistant') {
+            <span class="msg-avatar">🤖</span>
+          }
+          <div class="msg-bubble">{{ msg.content }}</div>
+        </div>
+      }
+
+      @if (isLoading()) {
+        <div class="message assistant">
+          <span class="msg-avatar">🤖</span>
+          <div class="msg-bubble typing">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="chat-footer">
+      <textarea
+        [(ngModel)]="userInput"
+        (keydown)="onKeyDown($event)"
+        placeholder="შეიყვანე შეტყობინება..."
+        rows="1"
+      ></textarea>
+      <button class="send-btn" (click)="sendMessage()" [disabled]="isLoading()">➤</button>
+    </div>
+  </div>
+
+  <button class="chat-toggle" (click)="toggleChat()">
+    {{ isOpen() ? '✕' : '💬' }}
+  </button>
+</div>

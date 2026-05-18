@@ -1,0 +1,64 @@
+<div class="register-container">
+  <h2>რეგისტრაცია</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <input formControlName="firstName" placeholder="სახელი" />
+
+    <input formControlName="lastName" placeholder="გვარი" />
+
+    <input formControlName="age" type="number" placeholder="ასაკი" />
+
+    <div class="field-wrap">
+      <input
+        formControlName="email"
+        type="email"
+        placeholder="იმეილი"
+        [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+      />
+      @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+        <span class="field-error">სწორი იმეილი შეიყვანე</span>
+      }
+    </div>
+
+    <div class="field-wrap">
+      <div class="input-wrapper">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="პაროლი"
+          [class.invalid]="
+            registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+          "
+        />
+        <button type="button" class="toggle-pass" (click)="showPassword = !showPassword">
+          {{ showPassword ? '🙈' : '👁' }}
+        </button>
+      </div>
+      @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+        <span class="field-error">მინიმუმ 8 სიმბოლო</span>
+      }
+    </div>
+
+    <input formControlName="address" placeholder="მისამართი" />
+
+    <input formControlName="phone" placeholder="ტელეფონი" />
+
+    <input formControlName="zipcode" placeholder="საფოსტო კოდი" />
+
+    <select formControlName="gender" [class.selected]="registerForm.get('gender')?.value">
+      <option value="" disabled selected>სქესი</option>
+      <option value="MALE">მამრობითი</option>
+      <option value="FEMALE">მდედრობითი</option>
+    </select>
+
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+
+    <button type="submit" [disabled]="registerForm.invalid || loading">
+      {{ loading ? 'იტვირთება...' : 'რეგისტრაცია' }}
+    </button>
+
+    <p>უკვე გაქვს ანგარიში? <a routerLink="/auth/login">შესვლა</a></p>
+  </form>
+</div>

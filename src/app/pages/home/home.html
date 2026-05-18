@@ -1,0 +1,96 @@
+<div class="hero" @fadeUp>
+  <div class="hero__content">
+    <img src="/logo-alt-transparent.png" alt="logo" />
+    <p>{{ 'home.hero_text' | translate }}</p>
+    <button routerLink="/shop">{{ 'home.shop_now' | translate }}</button>
+  </div>
+</div>
+
+@if (recentlyViewed().length > 0) {
+  <div class="carousel-section" @fadeUp>
+    <h2 class="section-title">{{ 'home.recently_viewed' | translate }}</h2>
+    <div class="carousel">
+      <button class="carousel-btn prev" (click)="prevSlide()">&#8249;</button>
+      <div class="carousel-track">
+        @for (product of visibleProducts; track product._id) {
+          <a class="carousel-card" [routerLink]="['/shop', product._id]" @fadeLeft>
+            <div class="carousel-img">
+              <img [src]="product.thumbnail" [alt]="product.title" />
+              @if (product.price.discountPercentage > 0) {
+                <span class="badge">-{{ product.price.discountPercentage }}%</span>
+              }
+            </div>
+            <div class="carousel-info">
+              <span class="carousel-category">{{ product.category.name }}</span>
+              <h3>{{ product.title }}</h3>
+              <p class="carousel-price">{{ product.price.current }} {{ product.price.currency }}</p>
+            </div>
+          </a>
+        }
+      </div>
+      <button class="carousel-btn next" (click)="nextSlide()">&#8250;</button>
+    </div>
+    <div class="carousel-dots">
+      @for (dot of [].constructor(totalSlides); track $index) {
+        <button
+          class="dot"
+          [class.active]="$index === currentSlide()"
+          (click)="currentSlide.set($index)"
+        ></button>
+      }
+    </div>
+  </div>
+}
+
+<footer class="footer" @fadeUp>
+  @if (quote()) {
+    <div class="quote-section" @fadeUp>
+      <div class="quote-card">
+        <span class="quote-type">{{ quote()!.type }}</span>
+        <p class="quote-text">"{{ quote()!.quote }}"</p>
+        <span class="quote-author">— {{ quote()!.author }}</span>
+      </div>
+    </div>
+  }
+  <div class="footer__top">
+    <div class="feature">
+      <i class="icon">🚚</i>
+      <span>{{ 'footer.pickup' | translate }}</span>
+    </div>
+    <div class="feature">
+      <i class="icon">📦</i>
+      <span>{{ 'footer.shipping' | translate }}</span>
+    </div>
+    <div class="feature">
+      <i class="icon">💲</i>
+      <span>{{ 'footer.prices' | translate }}</span>
+    </div>
+    <div class="feature">
+      <i class="icon">⏰</i>
+      <span>{{ 'footer.available' | translate }}</span>
+    </div>
+  </div>
+  <div class="footer__map">
+    <div class="map-header">
+      <h3>📍 {{ 'footer.find_us' | translate }}</h3>
+      <p>{{ 'footer.location' | translate }}</p>
+    </div>
+    <div id="map"></div>
+  </div>
+  <div class="footer__middle">
+    <p>{{ 'footer.payments' | translate }}</p>
+    <div class="payments">
+      <img src="visa.png" alt="Visa" />
+      <img src="mastercard.png" alt="Mastercard" />
+      <img src="amex.png" alt="American Express" />
+      <img src="unionpay.png" alt="UnionPay" />
+      <img src="jcb.png" alt="JCB" />
+      <img src="diners.png" alt="Diners Club" />
+      <img src="discover.png" alt="Discover" />
+      <img src="paypal.png" alt="PayPal" />
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <p>{{ 'footer.rights' | translate }}</p>
+  </div>
+</footer>

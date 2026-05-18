@@ -1,0 +1,17 @@
+@if (showModal()) {
+  <div class="lang-overlay">
+    <div class="lang-modal">
+      <h2>აირჩიე ენა / Choose Language</h2>
+      <div class="lang-options">
+        <button class="lang-btn" (click)="selectLang('ka')">
+          <span class="flag">🇬🇪</span>
+          <span>ქართული</span>
+        </button>
+        <button class="lang-btn" (click)="selectLang('en')">
+          <span class="flag">🇬🇧</span>
+          <span>English</span>
+        </button>
+      </div>
+    </div>
+  </div>
+}

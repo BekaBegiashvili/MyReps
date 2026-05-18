@@ -1,0 +1,56 @@
+.profile-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+.profile-container .tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.profile-container .tabs button {
+  flex: 1;
+  padding: 10px;
+  background: #1c1c1c;
+  border: 1px solid rgba(194, 216, 196, 0.1);
+  color: #e8e8e8;
+  border-radius: 10px;
+}
+.profile-container .tabs button.active {
+  background: #C2D8C4;
+  color: #000;
+}
+.profile-container img {
+  width: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.profile-container .actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+.profile-container .actions .btn-signout {
+  background: #242424;
+}
+.profile-container .actions .btn-delete {
+  background: #e07070;
+}
+.profile-container .actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  color: #e8e8e8;
+}
+.profile-container .form-group {
+  margin-bottom: 10px;
+}
+.profile-container .form-group input {
+  width: 100%;
+  padding: 8px;
+  background: #242424;
+  border: 1px solid rgba(194, 216, 196, 0.1);
+  border-radius: 8px;
+  color: #e8e8e8;
+}/*# sourceMappingURL=profile.css.map */

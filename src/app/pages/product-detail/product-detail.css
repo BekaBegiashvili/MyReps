@@ -1,0 +1,285 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.back-link {
+  display: inline-block;
+  font-size: 13px;
+  color: #888;
+  text-decoration: none;
+  margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.back-link:hover {
+  color: #1a1a1a;
+}
+
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.main-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8f8f8;
+  aspect-ratio: 4/3;
+}
+.main-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.badge-discount {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #e53935;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  background: #f8f8f8;
+  transition: border-color 0.15s;
+}
+.thumb:hover {
+  border-color: #ccc;
+}
+.thumb.active {
+  border-color: #1a1a1a;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category-tag {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+.stars svg {
+  fill: #e0e0e0;
+  stroke: none;
+}
+.stars svg.filled {
+  fill: #f9a825;
+}
+
+.rating-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.rating-count {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.price-current {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.price-before {
+  font-size: 15px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.stock-row {
+  font-size: 13px;
+}
+
+.in-stock {
+  color: #2e7d32;
+}
+
+.out-stock {
+  color: #c62828;
+}
+
+.divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 4px 0;
+}
+
+.description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-label {
+  font-size: 11px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.meta-value {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-transform: capitalize;
+}
+
+.add-to-cart {
+  margin-top: 8px;
+  padding: 14px 24px;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.add-to-cart:hover:not(:disabled) {
+  opacity: 0.8;
+}
+.add-to-cart:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.skeleton-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.skeleton-gallery {
+  aspect-ratio: 4/3;
+  border-radius: 12px;
+  background: #e8e8e8;
+}
+
+.skeleton-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-line {
+  border-radius: 6px;
+  background: #e8e8e8;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+.shimmer {
+  background: linear-gradient(90deg, #e8e8e8 25%, #f5f5f5 50%, #e8e8e8 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.error-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #666;
+}
+.error-state p {
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.back-btn:hover {
+  opacity: 0.75;
+}/*# sourceMappingURL=product-detail.css.map */
